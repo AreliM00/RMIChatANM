@@ -5,7 +5,7 @@
  */
 package vistas;
 
-import chat.InetrChat;
+import chat.Interfaz;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.rmi.RemoteException;
@@ -20,12 +20,12 @@ import javax.swing.JOptionPane;
  * @author arelm
  */
 public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
-    String nomUsu;
-    InetrChat chat;
+    String NomUsuario;
+    Interfaz chat;
     List<String>usuarios = new ArrayList<>();
    
     //Crear nuevo formulario binevenida
-    public vistaBienvenida(InetrChat chat) { //para mantener el paso del parámetro "chat"
+    public vistaBienvenida(Interfaz chat) { //para mantener el paso del parámetro "chat"
         initComponents(); //Inicializa los componentes del jframe
         this.chat = chat;
         nomusuario.addKeyListener(this);
@@ -149,18 +149,18 @@ public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
     }
 
     private void iniciousuario() {
-     nomUsu = nomusuario.getText();
+     NomUsuario = nomusuario.getText();
         try {
             usuarios = chat.getTodosUsu();
         } catch (RemoteException ex) {
             Logger.getLogger(vistaBienvenida.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (usuarios.contains(nomUsu)) {
+        if (usuarios.contains(NomUsuario)) {
             JOptionPane.showMessageDialog(null, "Este usuario ya existe");
             System.exit(0);
         } else {
             try {
-                new VistaChat(chat, nomUsu);   // pasar la referencia "chat" y el nombre del usuario registrado
+                new VistaChat(chat, NomUsuario);   // pasar la referencia "chat" y el nombre del usuario registrado
             } catch (RemoteException ex) {      //y crearlo en VistaChat
                 Logger.getLogger(vistaBienvenida.class.getName()).log(Level.SEVERE, null, ex);
             }

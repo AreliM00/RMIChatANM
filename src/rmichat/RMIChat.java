@@ -5,7 +5,7 @@
  */
 package rmichat;
 
-import chat.InetrChat;
+import chat.Interfaz;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -25,8 +25,8 @@ public class RMIChat {
      */
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 9999);
-            InetrChat chat = (InetrChat) registry.lookup("chatServer");  //obteniendo una referencia remota
+            Registry registry = LocateRegistry.getRegistry("localhost", 6303);
+            Interfaz chat = (Interfaz) registry.lookup("chatServer");  //obteniendo una referencia remota
             new vistaBienvenida(chat);  //pasar la referencia como parámetro
         } catch (Exception e) {
             e.printStackTrace();

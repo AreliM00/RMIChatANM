@@ -5,8 +5,8 @@
  */
 package vistas;
 
-import chat.InetrChat;
-import chat.Mensaje;
+import chat.Interfaz;
+import chat.Mensajes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -34,16 +34,16 @@ import javax.swing.JTextPane;
  */
 public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyListener {
 
-    String nomUsu;
-    InetrChat chat;
-    List<Mensaje> mens = new ArrayList<>();
+    String NomUsuario;
+    Interfaz chat;
+    List<Mensajes> mensaje = new ArrayList<>();
     List<String> usuarios = new ArrayList<>();
 
-    public VistaChat (InetrChat chat, String nomUso) throws RemoteException {
+    public VistaChat (Interfaz chat, String nomUso) throws RemoteException {
         initComponents();
         this.chat = chat;
-        this.nomUsu = nomUsu;
-        chat.iniciarses(nomUsu);
+        this.NomUsuario = NomUsuario;
+        chat.iniciarses(NomUsuario);
         execute();
     }
 
@@ -196,7 +196,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     private void botoncerrarsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoncerrarsesActionPerformed
         try {
-            chat.cerrarses(nomUsu);  //use the reference "chat" to call remote methods
+            chat.cerrarses(NomUsuario);  //use the reference "chat" to call remote methods
             System.exit(0);
             //catch the exceptions may occur, Rubbish URL, RemoteException
         } catch (RemoteException ex) {
@@ -261,7 +261,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
        private void execute() {
         usuarioslinea.setLineWrap(true);     //para eliminar la barra de desplazamiento horizontal
         setTitle("Chat Público");  
-        this.labelnombre.setText(nomUsu);
+        this.labelnombre.setText(NomUsuario);
         this.setVisible(true);
         setLocationRelativeTo(null);            // para ver la GUI en el medio de la pantalla
         Thread t1 = new Thread(new Runnable() {
@@ -282,10 +282,10 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     public void ListaChat() throws RemoteException {
         chatarea.setText("");
-        mens = chat.getTodosMens();
+        mensaje = chat.getTodosMens();
         String doc = "<html><body><table>";
-        for (Mensaje m : mens) {
-            if (!((m.getUsuarios().equals(usuarios)) && (m.getTipo().equals("join")))) {                      
+        for (Mensajes m : mensaje) {
+            if (!((m.getNomUsuario().equals(NomUsuario)) && (m.getTipo().equals("join")))) {                      
                 Date date = m.getFecha();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 String a = dateFormat.format(date);
@@ -306,7 +306,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         usuarioslinea.setText("");
         usuarios = chat.getTodosUsu();
         for (String u : usuarios) {
-            if (!u.equals(nomUsu)) {             
+            if (!u.equals(NomUsuario)) {             
                 usuarioslinea.append(" " + u + "\n");             
             }
         }
@@ -323,8 +323,8 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Mensaje mensaje = new Mensaje();
-        mensaje.setUsuarios(nomUsu);
+        Mensajes mensaje = new Mensajes();
+        mensaje.setNomUsuario(NomUsuario);
         mensaje.setTipo("Cliente");
         mensaje.setFecha(new Date());
         try {
@@ -368,9 +368,9 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
     private void enviarnewmensaje() {
         String EntraMens = areamensaje.getText();
         areamensaje.setText("");
-        Mensaje mensaje = new Mensaje();
-        mensaje.setUsuarios(nomUsu);
-        mensaje.setMens(EntraMens);
+        Mensajes mensaje = new Mensajes();
+        mensaje.setNomUsuario(NomUsuario);
+        mensaje.setMensaje(EntraMens);
         mensaje.setTipo("Cleinte");
         mensaje.setFecha(new Date());
         try {
