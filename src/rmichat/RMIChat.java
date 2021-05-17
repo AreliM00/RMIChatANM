@@ -24,12 +24,13 @@ public class RMIChat {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
+ 
+                   try {
             Registry registry = LocateRegistry.getRegistry("localhost", 6303);
             Interfaz chat = (Interfaz) registry.lookup("chatServer");  //obteniendo una referencia remota
             new vistaBienvenida(chat);  //pasar la referencia como parámetro
         } catch (Exception e) {
             e.printStackTrace();
-        }
+    }
     }
 }
