@@ -47,10 +47,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         execute();
     }
 
-    private VistaChat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,7 +238,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaChat().setVisible(true);
+          
             }
         });
     }

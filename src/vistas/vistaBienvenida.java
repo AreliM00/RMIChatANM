@@ -33,10 +33,6 @@ public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
         setLocationRelativeTo(null);
     }
 
-    private vistaBienvenida() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +121,7 @@ public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new vistaBienvenida().setVisible(true);
+                
             }
         });
     }
