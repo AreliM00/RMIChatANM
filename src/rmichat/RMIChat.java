@@ -25,7 +25,7 @@ public class RMIChat {
      */
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 9999);
+            Registry registry = LocateRegistry.getRegistry("localhost", 6303);
             InetrChat chat = (InetrChat) registry.lookup("chatServer");  //obteniendo una referencia remota
             new vistaBienvenida(chat);  //pasar la referencia como parámetro
         } catch (Exception e) {
