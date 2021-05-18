@@ -118,6 +118,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
         botoncerrarses.setBackground(new java.awt.Color(149, 125, 173));
         botoncerrarses.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        botoncerrarses.setForeground(new java.awt.Color(255, 255, 255));
         botoncerrarses.setText("Cerrar Sesión");
         botoncerrarses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,9 +127,15 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         });
 
         areamensaje.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        areamensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                areamensajeActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(149, 125, 173));
         jButton1.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Enviar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,9 +157,6 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(labelnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botoncerrarses)
@@ -161,7 +165,10 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
                         .addComponent(areamensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addGap(19, 19, 19))))
+                        .addGap(19, 19, 19))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +195,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,9 +219,14 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         enviarnewmensaje();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void areamensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areamensajeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_areamensajeActionPerformed
+
     /**
      * @param args the command line arguments
      */
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -240,12 +252,13 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
           
             }
         });
-    }
+    }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField areamensaje;
@@ -264,7 +277,8 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
        private void execute() {
         usuarioslinea.setLineWrap(true);     //para eliminar la barra de desplazamiento horizontal
-        setTitle("Chat Público");  
+        setTitle("Chat Público"); 
+        addListeners(); 
         this.labelnombre.setText(nomUsu);
         this.setVisible(true);
         setLocationRelativeTo(null);            // para ver la GUI en el medio de la pantalla
@@ -297,6 +311,13 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
                 SimpleDateFormat printFormat = new SimpleDateFormat("HH:mm:ss");
                 try {
                     Date time = parseFormat.parse(a);
+                    doc += "<tr><td>" 
+                                + printFormat.format(time) 
+                                + "</td><td><font color='rgb(55,178,204)'><b>" 
+                                + m.getNomUsu() 
+                                + "</b></font></td><td> " 
+                                + m.getMensaje() 
+                                + "</td></tr>";
                 } catch (ParseException ex) {
                     Logger.getLogger(VistaChat.class.getName()).log(Level.SEVERE, null, ex);
                 }                        
@@ -353,6 +374,10 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+    
+     private void addListeners() {
+         areamensaje.addKeyListener(this);
     }
 
     @Override
