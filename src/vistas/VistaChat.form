@@ -189,6 +189,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="botoncerrarses">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ad" green="7d" red="95" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Candara" size="14" style="0"/>
                 </Property>
@@ -207,6 +210,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ad" green="7d" red="95" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Candara" size="14" style="0"/>
                 </Property>
@@ -230,6 +236,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="12" style="0"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;  &lt;head&gt;&#xa;&#xa;  &lt;/head&gt;&#xa;  &lt;body&gt;&#xa;    &lt;p style=&quot;margin-top: 0&quot;&gt;&#xa;      &lt;h1 color=&apos;orange&apos;&gt;Equipo: Mario, Areli, Nicole&lt;/h1&gt;&#xa;    &lt;/p&gt;&#xa;  &lt;/body&gt;&#xa;&lt;/html&gt;&#xa;"/>
                   </Properties>
                 </Component>
               </SubComponents>

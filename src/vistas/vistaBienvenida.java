@@ -5,7 +5,7 @@
  */
 package vistas;
 
-import chat.Interfaz;
+import rmiservidor.Interfaz;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.rmi.RemoteException;
@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
  * @author arelm
  */
 public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
-    String NomUsuario;
+    String nomUsu;
     Interfaz chat;
-    List<String>usuarios = new ArrayList<>();
+    List<String> usuarios = new ArrayList<>();
    
     //Crear nuevo formulario binevenida
     public vistaBienvenida(Interfaz chat) { //para mantener el paso del parámetro "chat"
@@ -60,6 +60,11 @@ public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 250, -1));
 
         nomusuario.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        nomusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomusuarioActionPerformed(evt);
+            }
+        });
         jPanel1.add(nomusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 230, 30));
 
         botonIniciar.setBackground(new java.awt.Color(149, 125, 173));
@@ -90,6 +95,10 @@ public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
     private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
         iniciousuario();
     }//GEN-LAST:event_botonIniciarActionPerformed
+
+    private void nomusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomusuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,18 +158,18 @@ public class vistaBienvenida extends javax.swing.JFrame implements KeyListener{
     }
 
     private void iniciousuario() {
-     NomUsuario = nomusuario.getText();
+     nomUsu = nomusuario.getText();
         try {
             usuarios = chat.getTodosUsu();
         } catch (RemoteException ex) {
             Logger.getLogger(vistaBienvenida.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (usuarios.contains(NomUsuario)) {
+        if (usuarios.contains(nomUsu)) {
             JOptionPane.showMessageDialog(null, "Este usuario ya existe");
             System.exit(0);
         } else {
             try {
-                new VistaChat(chat, NomUsuario);   // pasar la referencia "chat" y el nombre del usuario registrado
+                new VistaChat(chat, nomUsu);   // pasar la referencia "chat" y el nombre del usuario registrado
             } catch (RemoteException ex) {      //y crearlo en VistaChat
                 Logger.getLogger(vistaBienvenida.class.getName()).log(Level.SEVERE, null, ex);
             }

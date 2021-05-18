@@ -5,8 +5,8 @@
  */
 package vistas;
 
-import chat.Interfaz;
-import chat.Mensajes;
+import rmiservidor.Interfaz;
+import rmiservidor.Mensajes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 
 /**
  *
@@ -34,16 +35,16 @@ import javax.swing.JTextPane;
  */
 public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyListener {
 
-    String NomUsuario;
+    String nomUsu;
     Interfaz chat;
-    List<Mensajes> mensaje = new ArrayList<>();
+    List<Mensajes> Mensj = new ArrayList<>();
     List<String> usuarios = new ArrayList<>();
 
-    public VistaChat (Interfaz chat, String nomUso) throws RemoteException {
+    public VistaChat (Interfaz chat, String nomUsu) throws RemoteException {
         initComponents();
         this.chat = chat;
-        this.NomUsuario = NomUsuario;
-        chat.iniciarses(NomUsuario);
+        this.nomUsu = nomUsu;
+        chat.iniciarses(nomUsu);
         execute();
     }
 
@@ -115,6 +116,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         labelnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelnombre.setText("nom");
 
+        botoncerrarses.setBackground(new java.awt.Color(149, 125, 173));
         botoncerrarses.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         botoncerrarses.setText("Cerrar Sesión");
         botoncerrarses.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +127,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
         areamensaje.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(149, 125, 173));
         jButton1.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         jButton1.setText("Enviar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +139,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         chatarea.setEditable(false);
         chatarea.setContentType("text/html"); // NOI18N
         chatarea.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        chatarea.setText("<html>\n  <head>\n\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n      <h1 color='orange'>Equipo: Mario, Areli, Nicole</h1>\n    </p>\n  </body>\n</html>\n");
         jScrollPane2.setViewportView(chatarea);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -196,7 +200,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     private void botoncerrarsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoncerrarsesActionPerformed
         try {
-            chat.cerrarses(NomUsuario);  //use the reference "chat" to call remote methods
+            chat.cerrarses(nomUsu);  //use the reference "chat" to call remote methods
             System.exit(0);
             //catch the exceptions may occur, Rubbish URL, RemoteException
         } catch (RemoteException ex) {
@@ -261,7 +265,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
        private void execute() {
         usuarioslinea.setLineWrap(true);     //para eliminar la barra de desplazamiento horizontal
         setTitle("Chat Público");  
-        this.labelnombre.setText(NomUsuario);
+        this.labelnombre.setText(nomUsu);
         this.setVisible(true);
         setLocationRelativeTo(null);            // para ver la GUI en el medio de la pantalla
         Thread t1 = new Thread(new Runnable() {
@@ -282,13 +286,13 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     public void ListaChat() throws RemoteException {
         chatarea.setText("");
-        mensaje = chat.getTodosMens();
+        Mensj = chat.getTodosMens();
         String doc = "<html><body><table>";
-        for (Mensajes m : mensaje) {
-            if (!((m.getNomUsuario().equals(NomUsuario)) && (m.getTipo().equals("join")))) {                      
-                Date date = m.getFecha();
+        for (Mensajes m : Mensj) {
+            if (!((m.getNomUsu().equals(nomUsu)) && (m.getTipo().equals("join")))) {                      
+                Date Fecha = m.getFecha();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                String a = dateFormat.format(date);
+                String a = dateFormat.format(Fecha);
                 SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 SimpleDateFormat printFormat = new SimpleDateFormat("HH:mm:ss");
                 try {
@@ -305,8 +309,9 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
     private void ListaUsu() throws RemoteException {
         usuarioslinea.setText("");
         usuarios = chat.getTodosUsu();
+       // System.out.println(nomUsu + "#$%");
         for (String u : usuarios) {
-            if (!u.equals(NomUsuario)) {             
+            if (!u.equals(nomUsu)) {             
                 usuarioslinea.append(" " + u + "\n");             
             }
         }
@@ -314,8 +319,8 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
 
     public void refrescar() {
         try {
-            ListaUsu();
             ListaChat();
+            ListaUsu();
         } catch (RemoteException ex) {
             Logger.getLogger(VistaChat.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -324,7 +329,7 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
     @Override
     public void mouseClicked(MouseEvent e) {
         Mensajes mensaje = new Mensajes();
-        mensaje.setNomUsuario(NomUsuario);
+        mensaje.setNomUsu(nomUsu);
         mensaje.setTipo("Cliente");
         mensaje.setFecha(new Date());
         try {
@@ -369,9 +374,9 @@ public class VistaChat extends javax.swing.JFrame implements MouseListener, KeyL
         String EntraMens = areamensaje.getText();
         areamensaje.setText("");
         Mensajes mensaje = new Mensajes();
-        mensaje.setNomUsuario(NomUsuario);
+        mensaje.setNomUsu(nomUsu);
         mensaje.setMensaje(EntraMens);
-        mensaje.setTipo("Cleinte");
+        mensaje.setTipo("Cliente");
         mensaje.setFecha(new Date());
         try {
             chat.enviarmens(mensaje);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chat;
+package rmiservidor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Mensajes implements Serializable { //Para que un programa java pueda convertir un objeto en un montón de bytes y pueda luego recuperarlo debe ser serializable
     
-    private String NomUsuario;
+    private String nomUsu;
     private String Mensj;
     private String tipo;
     private Date Fecha;
@@ -35,20 +35,20 @@ public class Mensajes implements Serializable { //Para que un programa java pued
         this.tipo = tipo;
     }
 
-    public String getNomUsuario() {
-        return NomUsuario;
+    public String getNomUsu() {
+        return nomUsu;
     }
 
-    public void setNomUsuario(String nomusuario) {
-        this.NomUsuario = nomusuario;
+    public void setNomUsu(String nomUsu) {
+        this.nomUsu = nomUsu;
     }
 
     public String getMensaje() {
         return Mensj;
     }
 
-    public void setMensaje(String mensj) {
-        this.Mensj = mensj;
+    public void setMensaje(String Mensj) {
+        this.Mensj = Mensj;
     }
     
 }
